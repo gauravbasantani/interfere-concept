@@ -23,7 +23,7 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--page);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;
   padding:24px max(18px,env(safe-area-inset-right,0px)) 40px max(18px,env(safe-area-inset-left,0px))}
 .wrap{max-width:1440px;margin:0 auto}
-.lab{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:22px;align-items:center}
+.lab{display:grid;grid-template-columns:minmax(0,1fr) 336px;gap:22px;align-items:center}
 @media (max-width:980px){.lab{grid-template-columns:1fr}}
 
 /* app mock */
@@ -131,6 +131,37 @@ h1{margin:0;font-size:clamp(24px,2.2vw,32px);line-height:1.1;font-weight:650;let
   .side{max-height:calc(100dvh - 36px);overflow:auto}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* side column, refined */
+.side{display:grid;gap:12px;align-content:center}
+.hd{display:grid;gap:8px}
+.by{margin:0;font-size:13px;color:var(--soft);font-weight:500}
+.side h1{margin:0;font-size:clamp(24px,2.1vw,30px);line-height:1.12;font-weight:650;letter-spacing:-.02em;text-wrap:balance}
+.side .intro{margin:0;color:var(--soft);font-size:14px;line-height:1.5}
+.group{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.opt{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 14px}
+.opt+.opt{border-top:1px solid var(--line)}
+.opt .txt{display:grid;gap:2px;min-width:0}
+.opt h3{margin:0;font-size:14.5px;font-weight:600;line-height:1.3}
+.opt p{margin:0;font-size:13px;color:var(--soft);line-height:1.4}
+.compare{display:grid;grid-template-columns:1fr 1fr;background:#e9e9e6;border-radius:11px;padding:3px;gap:3px}
+.compare button{all:unset;cursor:pointer;text-align:center;font-size:13.5px;font-weight:600;padding:8px 6px;border-radius:8px;color:var(--soft)}
+.compare button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 2px #0000001f}
+.compare button:focus-visible{outline:3px solid var(--blue);outline-offset:1px}
+.try{margin:0;font-size:13px;color:var(--soft)}
+.ft{display:grid;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.whybtn{all:unset;cursor:pointer;justify-self:start;font-size:14px;font-weight:600;color:var(--ink);border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 12px}
+.whybtn:focus-visible{outline:3px solid var(--blue)}
+.fine{margin:0;font-size:12px;color:var(--mute);line-height:1.5}
+.fine a{color:var(--soft)}
+
+@media (max-width:979px){
+  .side{order:-1}
+  .frame{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .app{min-width:720px}
+  .phone-note{display:block}
+}
+.phone-note{display:none;margin:-14px 0 0;font-size:12.5px;color:var(--mute)}
 </style>
 </head>
 <body>
@@ -144,25 +175,41 @@ h1{margin:0;font-size:clamp(24px,2.2vw,32px);line-height:1.1;font-weight:650;let
     </div>
     <div class="detail" id="detail"></div>
   </div></div>
+  <p class="phone-note">Swipe sideways to see the whole screen. Best viewed on a laptop.</p>
 
   <aside class="side">
-    <h1>Three small ideas for Interfere's problem page</h1>
-    <p class="intro">I read Luke's post on why he started Interfere and studied the product on your site. It already finds the cause fast. These ideas help the same problem make sense to an engineer, a PM and a designer. Try the switches and click the problems.</p>
-    <div class="idea">
-      <div class="idea-head"><h3>View it as Engineer, PM or Designer</h3><button class="switch" role="switch" aria-checked="true" data-k="a" aria-label="View it as Engineer, PM or Designer"></button></div>
-      <p>Same evidence, different first view: the code, who is affected, or where people got stuck.</p>
+    <header class="hd">
+      <p class="by">Concept by Gaurav Basantani, product designer</p>
+      <h1>Three small ideas for Interfere's problem page</h1>
+      <p class="intro">Luke's post says one problem should make sense to an engineer, a PM and a designer. These ideas build on the problem page you already have to do that.</p>
+    </header>
+
+    <div class="group" role="group" aria-label="Ideas">
+      <div class="opt">
+        <div class="txt"><h3>View as Engineer, PM or Designer</h3><p>Same evidence, a different first view for each role.</p></div>
+        <button class="switch" role="switch" aria-checked="true" data-k="a" aria-label="View as Engineer, PM or Designer"></button>
+      </div>
+      <div class="opt">
+        <div class="txt"><h3>Show where people got stuck</h3><p>The user's steps, with the broken one marked.</p></div>
+        <button class="switch" role="switch" aria-checked="true" data-k="b" aria-label="Show where people got stuck"></button>
+      </div>
+      <div class="opt">
+        <div class="txt"><h3>Catch problems with no error</h3><p>Flows that work as built but still lose people.</p></div>
+        <button class="switch" role="switch" aria-checked="true" data-k="c" aria-label="Catch problems with no error"></button>
+      </div>
     </div>
-    <div class="idea">
-      <div class="idea-head"><h3>Show where people got stuck</h3><button class="switch" role="switch" aria-checked="true" data-k="b" aria-label="Show where people got stuck"></button></div>
-      <p>The user's steps, with the broken one marked, above the details.</p>
+
+    <div class="compare" role="group" aria-label="Compare">
+      <button id="allOff" aria-pressed="false">Interfere today</button>
+      <button id="allOn" aria-pressed="true">With the ideas</button>
     </div>
-    <div class="idea">
-      <div class="idea-head"><h3>Catch problems with no error</h3><button class="switch" role="switch" aria-checked="true" data-k="c" aria-label="Catch problems with no error"></button></div>
-      <p>A flow can work as built and still lose people. Flag that too.</p>
-    </div>
-    <div class="both"><button id="allOff">Interfere today</button><button id="allOn">With all three</button></div>
-    <button class="whybtn" id="whyBtn" aria-haspopup="dialog">Why these choices</button>
-    <p class="fine">Unofficial concept by Gaurav Basantani, from public info only. Not affiliated with Interfere. All names and numbers are examples. <a href="https://gauravbasantani.com">gauravbasantani.com</a></p>
+
+    <p class="try">Try it: open #121, then switch to Designer.</p>
+
+    <footer class="ft">
+      <button class="whybtn" id="whyBtn" aria-haspopup="dialog">Why these choices</button>
+      <p class="fine">Unofficial concept from public information. Not affiliated with Interfere. Names and numbers are examples. <a href="https://gauravbasantani.com">gauravbasantani.com</a></p>
+    </footer>
   </aside>
 </section>
 
@@ -177,8 +224,7 @@ h1{margin:0;font-size:clamp(24px,2.2vw,32px);line-height:1.1;font-weight:650;let
       <li><b>No error is not no problem</b><span>Your post says a flow can work exactly as specified and still leave people stuck. Those problems get their own label in the inbox.</span></li>
       <li><b>Built on what is already there</b><span>The inbox, properties, findings and code finding stay as they are. Each idea can be switched off.</span></li>
       <li><b>A default, not a mode</b><span>The switch here shows the idea. In the product, each person could simply land on the view for their role, and switch only when they need to.</span></li>
-      <li><b>Honest numbers</b><span>Every number here is an example. In the real product, each one would link back to the sessions and findings behind it.</span></li>
-    </ul>
+      </ul>
     <h2>What I would ask your users first</h2>
     <ol>
       <li>When a PM opens a problem, what is the first question they need answered?</li>
@@ -238,7 +284,8 @@ h1{margin:0;font-size:clamp(24px,2.2vw,32px);line-height:1.1;font-weight:650;let
       '<div class="body fade">'+p[r]+'</div>';
     detail.querySelectorAll('.seg button').forEach(function(b){b.onclick=function(){role=b.dataset.r;renderDetail();};});
   }
-  function setIdea(k,on){app.classList.toggle('on-'+k,on);document.querySelector('.switch[data-k="'+k+'"]').setAttribute('aria-checked',on);
+  function syncCompare(){var n=['a','b','c'].filter(function(k){return app.classList.contains('on-'+k);}).length;document.getElementById('allOn').setAttribute('aria-pressed',n===3);document.getElementById('allOff').setAttribute('aria-pressed',n===0);}
+  function setIdea(k,on){app.classList.toggle('on-'+k,on);document.querySelector('.switch[data-k="'+k+'"]').setAttribute('aria-checked',on);syncCompare();
     if(k==='c'&&!on&&P[sel].noerr) sel='120';
     renderList();renderDetail();}
   document.querySelectorAll('.switch').forEach(function(b){b.onclick=function(){setIdea(b.dataset.k,b.getAttribute('aria-checked')!=='true');};});
