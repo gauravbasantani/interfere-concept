@@ -23,69 +23,69 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--page);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;
   padding:24px max(18px,env(safe-area-inset-right,0px)) 40px max(18px,env(safe-area-inset-left,0px))}
 .wrap{max-width:1440px;margin:0 auto}
-.lab{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:24px;align-items:center}
+.lab{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:22px;align-items:center}
 @media (max-width:980px){.lab{grid-template-columns:1fr}}
 
 /* app mock */
-.frame{background:#d9d9d6;border-radius:14px;padding:6px}
-.app{background:var(--app);border-radius:10px;aspect-ratio:16/10;overflow:hidden;container-type:inline-size;display:grid;grid-template-columns:4.2% 28% 1fr;font-size:1.25cqw;color:var(--ink)}
-.rail{border-right:1px solid var(--edge);background:var(--pane);display:grid;align-content:start;justify-items:center;gap:1.4cqw;padding-top:1.6cqw}
-.rail i{width:1.6cqw;height:1.6cqw;border-radius:.4cqw;background:#dcdcd8;display:block}
+.frame{background:#d9d9d6;border-radius:14px;padding:5px}
+.app{background:var(--app);border-radius:10px;aspect-ratio:3/2;overflow:hidden;container-type:inline-size;display:grid;grid-template-columns:4.2% 28% 1fr;font-size:1.5cqw;color:var(--ink)}
+.rail{border-right:1px solid var(--edge);background:var(--pane);display:grid;align-content:start;justify-items:center;gap:1.68cqw;padding-top:1.92cqw}
+.rail i{width:1.92cqw;height:1.92cqw;border-radius:0.48cqw;background:#dcdcd8;display:block}
 .rail i.on{background:var(--ink)}
 .inbox{border-right:1px solid var(--edge);display:grid;grid-template-rows:auto 1fr;min-height:0}
-.inbox header{padding:1.3cqw 1.4cqw;border-bottom:1px solid var(--edge);font-weight:600;font-size:1.3cqw;display:flex;justify-content:space-between}
+.inbox header{padding:1.56cqw 1.68cqw;border-bottom:1px solid var(--edge);font-weight:600;font-size:1.56cqw;display:flex;justify-content:space-between}
 .inbox header span{color:var(--mute);font-weight:500}
 .list{overflow:hidden}
-.item{all:unset;display:grid;gap:.4cqw;padding:1.1cqw 1.4cqw;border-bottom:1px solid var(--edge);cursor:pointer;width:100%;box-sizing:border-box}
+.item{all:unset;display:grid;gap:0.48cqw;padding:1.32cqw 1.68cqw;border-bottom:1px solid var(--edge);cursor:pointer;width:100%;box-sizing:border-box}
 .item:hover{background:var(--pane)}
 .item[aria-current="true"]{background:var(--blue-soft)}
 .item:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
-.item .t{font-weight:550;font-size:1.25cqw;line-height:1.3}
-.item .m{display:flex;gap:.8cqw;align-items:center;color:var(--mute);font-size:1.05cqw}
-.tag{border-radius:.5cqw;padding:.15cqw .6cqw;font-size:1cqw;font-weight:550;white-space:nowrap}
+.item .t{font-weight:550;font-size:1.5cqw;line-height:1.3}
+.item .m{display:flex;gap:0.96cqw;align-items:center;color:var(--mute);font-size:1.26cqw}
+.tag{border-radius:0.6cqw;padding:0.18cqw 0.72cqw;font-size:1.2cqw;font-weight:550;white-space:nowrap}
 .high{background:var(--red-soft);color:var(--red)} .med{background:var(--amber-soft);color:var(--amber)} .low{background:#f0f0ee;color:var(--soft)}
 .noerr{background:#efe9fd;color:#6a46d6}
 .new{animation:pop .6s ease}
 @keyframes pop{from{background:#efe9fd}to{background:transparent}}
 
 .detail{display:grid;grid-template-rows:auto auto auto 1fr;min-height:0;min-width:0}
-.dhead{padding:1.4cqw 2cqw 1cqw;border-bottom:1px solid var(--edge);display:grid;gap:.8cqw}
-.crumb{color:var(--mute);font-size:1.05cqw}
-.dhead h2{margin:0;font-size:2cqw;font-weight:650;letter-spacing:-.01em;line-height:1.2}
-.chips{display:flex;gap:.6cqw;flex-wrap:wrap}
-.chip{border:1px solid var(--edge);border-radius:.6cqw;padding:.2cqw .7cqw;font-size:1.05cqw;color:var(--soft);background:#fff}
-.summary{margin:0;font-size:1.4cqw;line-height:1.4}
-.lens{display:none;align-items:center;gap:1cqw;padding:1cqw 2cqw;border-bottom:1px solid var(--edge);background:var(--pane)}
+.dhead{padding:1.68cqw 2.4cqw 1.2cqw;border-bottom:1px solid var(--edge);display:grid;gap:0.96cqw}
+.crumb{color:var(--mute);font-size:1.26cqw}
+.dhead h2{margin:0;font-size:2.4cqw;font-weight:650;letter-spacing:-.01em;line-height:1.2}
+.chips{display:flex;gap:0.72cqw;flex-wrap:wrap}
+.chip{border:1px solid var(--edge);border-radius:0.72cqw;padding:0.24cqw 0.84cqw;font-size:1.26cqw;color:var(--soft);background:#fff}
+.summary{margin:0;font-size:1.68cqw;line-height:1.4}
+.lens{display:none;align-items:center;gap:1.2cqw;padding:1.2cqw 2.4cqw;border-bottom:1px solid var(--edge);background:var(--pane)}
 .on-a .lens{display:flex}
-.lens span{color:var(--mute);font-size:1.1cqw}
-.seg{display:flex;border:1px solid var(--edge);border-radius:.8cqw;overflow:hidden;background:#fff}
-.seg button{all:unset;cursor:pointer;padding:.5cqw 1.4cqw;font-size:1.15cqw;font-weight:550;color:var(--soft)}
+.lens span{color:var(--mute);font-size:1.32cqw}
+.seg{display:flex;border:1px solid var(--edge);border-radius:0.96cqw;overflow:hidden;background:#fff}
+.seg button{all:unset;cursor:pointer;padding:0.6cqw 1.68cqw;font-size:1.38cqw;font-weight:550;color:var(--soft)}
 .seg button+button{border-left:1px solid var(--edge)}
 .seg button[aria-pressed="true"]{background:var(--ink);color:#fff}
 .seg button:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
-.flow{display:none;padding:1.2cqw 2cqw;border-bottom:1px solid var(--edge);gap:.8cqw}
+.flow{display:none;padding:1.44cqw 2.4cqw;border-bottom:1px solid var(--edge);gap:0.96cqw}
 .on-b .flow{display:grid}
-.flow h3,.body h3{margin:0;font-size:1.1cqw;font-weight:600;color:var(--mute)}
-.steps{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:.6cqw}
-.step{border:1px solid var(--edge);border-radius:.8cqw;padding:.7cqw .8cqw;display:grid;gap:.2cqw;background:#fff}
-.step b{font-size:1.1cqw;font-weight:600;line-height:1.25}
-.step small{font-size:1cqw;color:var(--mute);font-family:var(--mono)}
+.flow h3,.body h3{margin:0;font-size:1.32cqw;font-weight:600;color:var(--mute)}
+.steps{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:0.72cqw}
+.step{border:1px solid var(--edge);border-radius:0.96cqw;padding:0.84cqw 0.96cqw;display:grid;gap:0.24cqw;background:#fff}
+.step b{font-size:1.32cqw;font-weight:600;line-height:1.25}
+.step small{font-size:1.2cqw;color:var(--mute);font-family:var(--mono)}
 .step.broke{border-color:var(--red);background:var(--red-soft)}
 .step.broke small{color:var(--red)}
 .step.never{opacity:.45}
-.body{padding:1.4cqw 2cqw;display:grid;gap:1.2cqw;align-content:start;overflow:hidden}
-.row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1cqw}
-.stat{border:1px solid var(--edge);border-radius:.8cqw;padding:.9cqw 1.1cqw;display:grid;gap:.2cqw}
-.stat small{color:var(--mute);font-size:1cqw}
-.stat b{font-size:1.9cqw;font-weight:650;font-variant-numeric:tabular-nums}
-.stat em{font-style:normal;font-size:1cqw;color:var(--soft)}
-.note{border:1px solid var(--edge);border-radius:.8cqw;padding:1cqw 1.2cqw;display:grid;gap:.5cqw}
-.note p{margin:0;font-size:1.2cqw;line-height:1.45}
-.code{font-family:var(--mono);font-size:1.05cqw;background:var(--pane);border:1px solid var(--edge);border-radius:.6cqw;padding:.8cqw 1cqw;line-height:1.6;overflow:hidden;white-space:pre}
+.body{padding:1.3cqw 2.4cqw;display:grid;gap:1cqw;align-content:start;overflow:hidden}
+.row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.2cqw}
+.stat{border:1px solid var(--edge);border-radius:0.96cqw;padding:1.08cqw 1.32cqw;display:grid;gap:0.24cqw}
+.stat small{color:var(--mute);font-size:1.2cqw}
+.stat b{font-size:2.28cqw;font-weight:650;font-variant-numeric:tabular-nums}
+.stat em{font-style:normal;font-size:1.2cqw;color:var(--soft)}
+.note{border:1px solid var(--edge);border-radius:0.96cqw;padding:1cqw 1.44cqw;display:grid;gap:0.5cqw}
+.note p{margin:0;font-size:1.44cqw;line-height:1.45}
+.code{font-family:var(--mono);font-size:1.26cqw;background:var(--pane);border:1px solid var(--edge);border-radius:0.72cqw;padding:0.96cqw 1.2cqw;line-height:1.6;overflow:hidden;white-space:pre}
 .code .del{background:var(--red-soft);color:var(--red);display:block}
 .code .add{background:var(--green-soft);color:var(--green);display:block}
-.replay{display:grid;grid-template-columns:repeat(3,1fr);gap:.8cqw}
-.shot{border:1px solid var(--edge);border-radius:.6cqw;aspect-ratio:16/10;background:var(--pane);display:grid;place-items:center;text-align:center;font-size:1cqw;color:var(--mute);padding:.6cqw}
+.replay{display:grid;grid-template-columns:repeat(3,1fr);gap:0.96cqw}
+.shot{border:1px solid var(--edge);border-radius:0.72cqw;aspect-ratio:16/10;background:var(--pane);display:grid;place-items:center;text-align:center;font-size:1.2cqw;color:var(--mute);padding:0.72cqw}
 .shot.err{background:var(--red-soft);color:var(--red);border-color:#f3c4c1}
 .fade{animation:fade .25s ease}
 @keyframes fade{from{opacity:.3}to{opacity:1}}
@@ -127,7 +127,7 @@ h1{margin:0;font-size:clamp(24px,2.2vw,32px);line-height:1.1;font-weight:650;let
   body{padding:18px max(18px,env(safe-area-inset-right,0px)) 18px max(18px,env(safe-area-inset-left,0px))}
   .wrap,.lab{height:100%}
   .lab{grid-template-rows:minmax(0,1fr)}
-  .frame{width:min(100%,calc((100dvh - 36px - 12px) * 16 / 10));margin:0 auto}
+  .frame{width:min(100%,calc((100dvh - 36px - 12px) * 3 / 2));margin:0 auto}
   .side{max-height:calc(100dvh - 36px);overflow:auto}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -176,6 +176,7 @@ h1{margin:0;font-size:clamp(24px,2.2vw,32px);line-height:1.1;font-weight:650;let
       <li><b>Show the experience, not only the error</b><span>The step strip shows where people dropped off, so a fix can be judged by whether people get through again.</span></li>
       <li><b>No error is not no problem</b><span>Your post says a flow can work exactly as specified and still leave people stuck. Those problems get their own label in the inbox.</span></li>
       <li><b>Built on what is already there</b><span>The inbox, properties, findings and code finding stay as they are. Each idea can be switched off.</span></li>
+      <li><b>A default, not a mode</b><span>The switch here shows the idea. In the product, each person could simply land on the view for their role, and switch only when they need to.</span></li>
       <li><b>Honest numbers</b><span>Every number here is an example. In the real product, each one would link back to the sessions and findings behind it.</span></li>
     </ul>
     <h2>What I would ask your users first</h2>
