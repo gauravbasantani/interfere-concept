@@ -250,7 +250,7 @@ h1{margin:0;font-size:clamp(24px,2.2vw,32px);line-height:1.1;font-weight:650;let
 <script>
 (function(){
   var app=document.getElementById('app'),list=document.getElementById('list'),detail=document.getElementById('detail');
-  var role='eng', sel='120';
+  var role='eng', sel='120', flashNew=false;
   var P={
     '120':{title:'Broken password reset link',pri:['High','high'],users:'12,881',crumb:'Inbox / #120',chips:['Active','Regression','Website','iOS app'],
       summary:"People can't reset their password. The reset link opens an error page instead of the form.",
@@ -278,7 +278,7 @@ h1{margin:0;font-size:clamp(24px,2.2vw,32px);line-height:1.1;font-weight:650;let
     var n=0;
     order.forEach(function(id){
       var p=P[id]; if(p.noerr && !app.classList.contains('on-c')) return; n++;
-      var b=document.createElement('button');b.className='item'+(p.noerr?' new':'');b.setAttribute('aria-current',id===sel);
+      var b=document.createElement('button');b.className='item'+(p.noerr&&flashNew?' new':'');b.setAttribute('aria-current',id===sel);
       b.innerHTML='<span class="t">#'+id+' '+p.title+'</span><span class="m">'+(p.noerr?'<span class="tag noerr">No error</span>':'')+'<span class="tag '+p.pri[1]+'">'+p.pri[0]+'</span><span>'+p.users+' people</span></span>';
       b.onclick=function(){sel=id;renderList();renderDetail();};
       list.appendChild(b);
@@ -299,7 +299,8 @@ h1{margin:0;font-size:clamp(24px,2.2vw,32px);line-height:1.1;font-weight:650;let
   function syncCompare(){var n=['a','b','c'].filter(function(k){return app.classList.contains('on-'+k);}).length;document.getElementById('allOn').setAttribute('aria-pressed',n===3);document.getElementById('allOff').setAttribute('aria-pressed',n===0);}
   function setIdea(k,on){app.classList.toggle('on-'+k,on);document.querySelector('.switch[data-k="'+k+'"]').setAttribute('aria-checked',on);syncCompare();
     if(k==='c'&&!on&&P[sel].noerr) sel='120';
-    renderList();renderDetail();}
+    flashNew=(k==='c'&&on);
+    renderList();renderDetail();flashNew=false;}
   document.querySelectorAll('.switch').forEach(function(b){b.onclick=function(){setIdea(b.dataset.k,b.getAttribute('aria-checked')!=='true');};});
   document.getElementById('allOff').onclick=function(){['a','b','c'].forEach(function(k){setIdea(k,false);});};
   document.getElementById('allOn').onclick=function(){['a','b','c'].forEach(function(k){setIdea(k,true);});};
