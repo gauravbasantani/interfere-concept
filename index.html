@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Interfere Concept · Gaurav Basantani</title>
+<meta name="description" content="Three small ideas for Interfere's problem page: one problem for engineers, PMs and designers. An unofficial concept by Gaurav Basantani.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Plan: the app mock is the hero, drawn in Interfere's own calm light style (white, soft grey, one blue).
+   Right column: short note, three switches, compare buttons. Details live in a pop-up. Fits one laptop screen. */
+:root{
+  --page:#f4f4f2; --ink:#16181d; --soft:#5d636e; --line:#e2e2df;
+  --app:#ffffff; --pane:#fafaf9; --edge:#ececea; --mute:#8a8f98;
+  --blue:#2f6fed; --blue-soft:#e9f0fe; --red:#d9433b; --red-soft:#fdeceb; --amber:#c27a12; --amber-soft:#fdf3e2; --green:#1f9d68; --green-soft:#e6f5ee;
+  --font:"Geist",system-ui,-apple-system,sans-serif; --mono:"Geist Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--page);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;
+  padding:24px max(18px,env(safe-area-inset-right,0px)) 40px max(18px,env(safe-area-inset-left,0px))}
+.wrap{max-width:1440px;margin:0 auto}
+.lab{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:24px;align-items:center}
+@media (max-width:980px){.lab{grid-template-columns:1fr}}
+
+/* app mock */
+.frame{background:#d9d9d6;border-radius:14px;padding:6px}
+.app{background:var(--app);border-radius:10px;aspect-ratio:16/10;overflow:hidden;container-type:inline-size;display:grid;grid-template-columns:4.2% 28% 1fr;font-size:1.25cqw;color:var(--ink)}
+.rail{border-right:1px solid var(--edge);background:var(--pane);display:grid;align-content:start;justify-items:center;gap:1.4cqw;padding-top:1.6cqw}
+.rail i{width:1.6cqw;height:1.6cqw;border-radius:.4cqw;background:#dcdcd8;display:block}
+.rail i.on{background:var(--ink)}
+.inbox{border-right:1px solid var(--edge);display:grid;grid-template-rows:auto 1fr;min-height:0}
+.inbox header{padding:1.3cqw 1.4cqw;border-bottom:1px solid var(--edge);font-weight:600;font-size:1.3cqw;display:flex;justify-content:space-between}
+.inbox header span{color:var(--mute);font-weight:500}
+.list{overflow:hidden}
+.item{all:unset;display:grid;gap:.4cqw;padding:1.1cqw 1.4cqw;border-bottom:1px solid var(--edge);cursor:pointer;width:100%;box-sizing:border-box}
+.item:hover{background:var(--pane)}
+.item[aria-current="true"]{background:var(--blue-soft)}
+.item:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.item .t{font-weight:550;font-size:1.25cqw;line-height:1.3}
+.item .m{display:flex;gap:.8cqw;align-items:center;color:var(--mute);font-size:1.05cqw}
+.tag{border-radius:.5cqw;padding:.15cqw .6cqw;font-size:1cqw;font-weight:550;white-space:nowrap}
+.high{background:var(--red-soft);color:var(--red)} .med{background:var(--amber-soft);color:var(--amber)} .low{background:#f0f0ee;color:var(--soft)}
+.noerr{background:#efe9fd;color:#6a46d6}
+.new{animation:pop .6s ease}
+@keyframes pop{from{background:#efe9fd}to{background:transparent}}
+
+.detail{display:grid;grid-template-rows:auto auto auto 1fr;min-height:0;min-width:0}
+.dhead{padding:1.4cqw 2cqw 1cqw;border-bottom:1px solid var(--edge);display:grid;gap:.8cqw}
+.crumb{color:var(--mute);font-size:1.05cqw}
+.dhead h2{margin:0;font-size:2cqw;font-weight:650;letter-spacing:-.01em;line-height:1.2}
+.chips{display:flex;gap:.6cqw;flex-wrap:wrap}
+.chip{border:1px solid var(--edge);border-radius:.6cqw;padding:.2cqw .7cqw;font-size:1.05cqw;color:var(--soft);background:#fff}
+.summary{margin:0;font-size:1.4cqw;line-height:1.4}
+.lens{display:none;align-items:center;gap:1cqw;padding:1cqw 2cqw;border-bottom:1px solid var(--edge);background:var(--pane)}
+.on-a .lens{display:flex}
+.lens span{color:var(--mute);font-size:1.1cqw}
+.seg{display:flex;border:1px solid var(--edge);border-radius:.8cqw;overflow:hidden;background:#fff}
+.seg button{all:unset;cursor:pointer;padding:.5cqw 1.4cqw;font-size:1.15cqw;font-weight:550;color:var(--soft)}
+.seg button+button{border-left:1px solid var(--edge)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}
+.flow{display:none;padding:1.2cqw 2cqw;border-bottom:1px solid var(--edge);gap:.8cqw}
+.on-b .flow{display:grid}
+.flow h3,.body h3{margin:0;font-size:1.1cqw;font-weight:600;color:var(--mute)}
+.steps{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:.6cqw}
+.step{border:1px solid var(--edge);border-radius:.8cqw;padding:.7cqw .8cqw;display:grid;gap:.2cqw;background:#fff}
+.step b{font-size:1.1cqw;font-weight:600;line-height:1.25}
+.step small{font-size:1cqw;color:var(--mute);font-family:var(--mono)}
+.step.broke{border-color:var(--red);background:var(--red-soft)}
+.step.broke small{color:var(--red)}
+.step.never{opacity:.45}
+.body{padding:1.4cqw 2cqw;display:grid;gap:1.2cqw;align-content:start;overflow:hidden}
+.row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1cqw}
+.stat{border:1px solid var(--edge);border-radius:.8cqw;padding:.9cqw 1.1cqw;display:grid;gap:.2cqw}
+.stat small{color:var(--mute);font-size:1cqw}
+.stat b{font-size:1.9cqw;font-weight:650;font-variant-numeric:tabular-nums}
+.stat em{font-style:normal;font-size:1cqw;color:var(--soft)}
+.note{border:1px solid var(--edge);border-radius:.8cqw;padding:1cqw 1.2cqw;display:grid;gap:.5cqw}
+.note p{margin:0;font-size:1.2cqw;line-height:1.45}
+.code{font-family:var(--mono);font-size:1.05cqw;background:var(--pane);border:1px solid var(--edge);border-radius:.6cqw;padding:.8cqw 1cqw;line-height:1.6;overflow:hidden;white-space:pre}
+.code .del{background:var(--red-soft);color:var(--red);display:block}
+.code .add{background:var(--green-soft);color:var(--green);display:block}
+.replay{display:grid;grid-template-columns:repeat(3,1fr);gap:.8cqw}
+.shot{border:1px solid var(--edge);border-radius:.6cqw;aspect-ratio:16/10;background:var(--pane);display:grid;place-items:center;text-align:center;font-size:1cqw;color:var(--mute);padding:.6cqw}
+.shot.err{background:var(--red-soft);color:var(--red);border-color:#f3c4c1}
+.fade{animation:fade .25s ease}
+@keyframes fade{from{opacity:.3}to{opacity:1}}
+
+/* side */
+.side{display:grid;gap:9px;align-content:center}
+h1{margin:0;font-size:clamp(24px,2.2vw,32px);line-height:1.1;font-weight:650;letter-spacing:-.02em;text-wrap:balance}
+.intro{margin:0;color:var(--soft);font-size:14.5px;line-height:1.5}
+.idea{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 14px;display:grid;gap:2px}
+.idea-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.idea h3{margin:0;font-size:15px;font-weight:600;line-height:1.3}
+.idea p{margin:0;font-size:13px;color:var(--soft)}
+.switch{all:unset;flex:none;cursor:pointer;width:44px;height:25px;border-radius:13px;background:#cfcfca;position:relative;transition:background .15s}
+.switch::after{content:"";position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:#fff;transition:transform .15s;box-shadow:0 1px 2px #0003}
+.switch[aria-checked="true"]{background:var(--ink)}
+.switch[aria-checked="true"]::after{transform:translateX(19px)}
+.switch:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.both{display:flex;gap:8px}
+.both button{all:unset;cursor:pointer;flex:1;text-align:center;font-size:13.5px;font-weight:600;padding:8px;border-radius:10px;border:1px solid var(--line);background:#fff}
+.both button:focus-visible{outline:3px solid var(--blue)}
+.whybtn{all:unset;cursor:pointer;font-size:14px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.whybtn:focus-visible{outline:3px solid var(--blue)}
+.fine{margin:0;font-size:12px;color:var(--soft);line-height:1.45}
+.fine a{color:var(--ink)}
+.overlay{position:fixed;inset:0;background:#16181d99;display:grid;place-items:center;padding:20px;z-index:10}
+.overlay[hidden]{display:none}
+.panel{background:#fff;border-radius:16px;max-width:820px;width:100%;max-height:calc(100dvh - 40px);overflow:auto;padding:24px;display:grid;gap:18px;position:relative}
+.panel h2{margin:0;font-size:22px;letter-spacing:-.01em}
+.panel ul{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 26px}
+.panel li{border-top:1px solid var(--line);padding-top:9px}
+.panel li b{display:block;font-size:15.5px}
+.panel li span{font-size:14px;color:var(--soft)}
+.panel ol{margin:0;padding-left:20px;color:var(--soft);font-size:14.5px;display:grid;gap:4px}
+.close{all:unset;cursor:pointer;position:absolute;right:16px;top:14px;font-size:14px;font-weight:600;padding:6px 10px;border:1px solid var(--line);border-radius:8px}
+.close:focus-visible{outline:3px solid var(--blue)}
+@media (max-width:700px){.panel ul{grid-template-columns:1fr}}
+@media (min-width:980px) and (min-height:560px){
+  html,body{height:100%;overflow:hidden}
+  body{padding:18px max(18px,env(safe-area-inset-right,0px)) 18px max(18px,env(safe-area-inset-left,0px))}
+  .wrap,.lab{height:100%}
+  .lab{grid-template-rows:minmax(0,1fr)}
+  .frame{width:min(100%,calc((100dvh - 36px - 12px) * 16 / 10));margin:0 auto}
+  .side{max-height:calc(100dvh - 36px);overflow:auto}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="lab">
+  <div class="frame"><div class="app on-a on-b on-c" id="app">
+    <nav class="rail" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i><i></i></nav>
+    <div class="inbox">
+      <header>Inbox <span id="count">3</span></header>
+      <div class="list" id="list"></div>
+    </div>
+    <div class="detail" id="detail"></div>
+  </div></div>
+
+  <aside class="side">
+    <h1>Three small ideas for Interfere's problem page</h1>
+    <p class="intro">I read Luke's post on why he started Interfere and studied the product on your site. It already finds the cause fast. These ideas help the same problem make sense to an engineer, a PM and a designer. Try the switches and click the problems.</p>
+    <div class="idea">
+      <div class="idea-head"><h3>View it as Engineer, PM or Designer</h3><button class="switch" role="switch" aria-checked="true" data-k="a" aria-label="View it as Engineer, PM or Designer"></button></div>
+      <p>Same evidence, different first view: the code, who is affected, or where people got stuck.</p>
+    </div>
+    <div class="idea">
+      <div class="idea-head"><h3>Show where people got stuck</h3><button class="switch" role="switch" aria-checked="true" data-k="b" aria-label="Show where people got stuck"></button></div>
+      <p>The user's steps, with the broken one marked, above the details.</p>
+    </div>
+    <div class="idea">
+      <div class="idea-head"><h3>Catch problems with no error</h3><button class="switch" role="switch" aria-checked="true" data-k="c" aria-label="Catch problems with no error"></button></div>
+      <p>A flow can work as built and still lose people. Flag that too.</p>
+    </div>
+    <div class="both"><button id="allOff">Interfere today</button><button id="allOn">With all three</button></div>
+    <button class="whybtn" id="whyBtn" aria-haspopup="dialog">Why these choices</button>
+    <p class="fine">Unofficial concept by Gaurav Basantani, from public info only. Not affiliated with Interfere. All names and numbers are examples. <a href="https://gauravbasantani.com">gauravbasantani.com</a></p>
+  </aside>
+</section>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="whyTitle">
+    <button class="close" id="closeWhy">Close</button>
+    <h2 id="whyTitle">Why these choices</h2>
+    <ul>
+      <li><b>One sentence everyone agrees on</b><span>Every problem opens with a plain summary, like "People can't reset their password." Each role starts from the same truth.</span></li>
+      <li><b>Same evidence, different first view</b><span>The engineer sees the code change first, the PM sees who is affected, the designer sees the broken step. Nobody has to ask someone else to translate.</span></li>
+      <li><b>Show the experience, not only the error</b><span>The step strip shows where people dropped off, so a fix can be judged by whether people get through again.</span></li>
+      <li><b>No error is not no problem</b><span>Your post says a flow can work exactly as specified and still leave people stuck. Those problems get their own label in the inbox.</span></li>
+      <li><b>Built on what is already there</b><span>The inbox, properties, findings and code finding stay as they are. Each idea can be switched off.</span></li>
+      <li><b>Honest numbers</b><span>Every number here is an example. In the real product, each one would link back to the sessions and findings behind it.</span></li>
+    </ul>
+    <h2>What I would ask your users first</h2>
+    <ol>
+      <li>When a PM opens a problem, what is the first question they need answered?</li>
+      <li>Do designers want to watch sessions, or see the broken step first?</li>
+      <li>Which "no error" problems have hurt your customers the most?</li>
+    </ol>
+  </div>
+</div>
+</div>
+
+<script>
+(function(){
+  var app=document.getElementById('app'),list=document.getElementById('list'),detail=document.getElementById('detail');
+  var role='eng', sel='120';
+  var P={
+    '120':{title:'Broken password reset link',pri:['High','high'],users:'12,881',crumb:'Inbox / #120',chips:['Active','Regression','Website','iOS app'],
+      summary:"People can't reset their password. The reset link opens an error page instead of the form.",
+      steps:[['Asks for reset','12,881'],['Gets email','12,880'],['Opens link','11,402'],['Sees error page','11,402',1],['Sets password','0',2]],
+      eng:'<div class="note"><h3>Finding</h3><p>A recent change in auth/reset.ts points the link at a route that no longer exists.</p><div class="code">  export function buildResetLink(userId) {\n<span class="del">-   const baseUrl = "https://example.com/reset-password";</span><span class="add">+   const baseUrl = "https://staging.example.com";</span>  }</div></div><div class="note"><h3>Fact</h3><p>Error rate went from 0.2% to 12% within 6 minutes of Tuesday\'s deploy (example).</p></div>',
+      pm:'<div class="row"><div class="stat"><small>People affected</small><b>12,881</b><em>example</em></div><div class="stat"><small>Paying workspaces</small><b>44</b><em>3 Enterprise (example)</em></div><div class="stat"><small>Since</small><b>36 min</b><em>after Tuesday\'s deploy</em></div></div><div class="note"><h3>What to tell customers</h3><p>"Password reset links are not working right now. We\'re fixing it. You can still sign in with your current password." Owner: Luke. Fix suggested.</p></div>',
+      des:'<div class="note"><h3>What people see</h3><p>They click the link in the email and land on a generic error page with no way back to the form. Most try the link again, then leave.</p></div><div class="replay"><div class="shot">Reset email</div><div class="shot err">Generic error page</div><div class="shot">Back to sign in</div></div>'},
+    '121':{noerr:true,title:'People give up on onboarding at "Connect your repo"',pri:['Medium','med'],users:'214',crumb:'Inbox / #121',chips:['Investigating','No error','Website'],
+      summary:'New trials stop at "Connect your repo". Nothing errors: people click Connect, wait, and leave.',
+      steps:[['Signs up','1,020'],['Names project','964'],['Connect your repo','596',1],['Installs SDK','382',2],['Sees first problem','350',2]],
+      eng:'<div class="note"><h3>No exception thrown</h3><p>The Connect button works, but the page shows nothing for up to 20 seconds while it waits for GitHub. Sessions show people clicking it twice, then leaving (example).</p></div>',
+      pm:'<div class="row"><div class="stat"><small>Trials stuck this week</small><b>214</b><em>example</em></div><div class="stat"><small>Drop at this step</small><b>38%</b><em>was 12% last month</em></div><div class="stat"><small>Since</small><b>v12.0</b><em>latest release</em></div></div><div class="note"><h3>Why it matters</h3><p>These are new trials that never see their first problem in Interfere, so they never see the value.</p></div>',
+      des:'<div class="note"><h3>What people see</h3><p>A Connect button that seems to do nothing. No spinner, no message. They try again, then give up. A clear "Waiting for GitHub" state would likely fix most of it.</p></div><div class="replay"><div class="shot">Connect your repo</div><div class="shot err">Nothing happens for 20s</div><div class="shot">Tab closed</div></div>'},
+    '87':{title:'Users unable to export billing invoices',pri:['High','high'],users:'1,521',crumb:'Inbox / #87',chips:['Investigating','Website'],
+      summary:'People click "Export invoices" and the download never starts.',
+      steps:[['Opens billing','1,890'],['Clicks Export','1,521'],['Download starts','0',1]],
+      eng:'<div class="note"><h3>Finding</h3><p>The export request times out for accounts with more than 500 invoices (example).</p></div>',
+      pm:'<div class="row"><div class="stat"><small>People affected</small><b>1,521</b><em>example</em></div><div class="stat"><small>Accounts</small><b>63</b><em>mostly finance teams</em></div><div class="stat"><small>Since</small><b>2 days</b><em>example</em></div></div>',
+      des:'<div class="note"><h3>What people see</h3><p>The button looks pressed, then nothing. No progress and no error, so people click it again.</p></div>'}
+  };
+  var order=['121','120','87'];
+
+  function renderList(){
+    list.innerHTML='';
+    var n=0;
+    order.forEach(function(id){
+      var p=P[id]; if(p.noerr && !app.classList.contains('on-c')) return; n++;
+      var b=document.createElement('button');b.className='item'+(p.noerr?' new':'');b.setAttribute('aria-current',id===sel);
+      b.innerHTML='<span class="t">#'+id+' '+p.title+'</span><span class="m">'+(p.noerr?'<span class="tag noerr">No error</span>':'')+'<span class="tag '+p.pri[1]+'">'+p.pri[0]+'</span><span>'+p.users+' people</span></span>';
+      b.onclick=function(){sel=id;renderList();renderDetail();};
+      list.appendChild(b);
+    });
+    document.getElementById('count').textContent=n;
+  }
+  function renderDetail(){
+    var p=P[sel], r=app.classList.contains('on-a')?role:'eng';
+    var steps=p.steps.map(function(s){return '<div class="step'+(s[2]===1?' broke':s[2]===2?' never':'')+'"><b>'+s[0]+'</b><small>'+s[1]+'</small></div>';}).join('');
+    detail.innerHTML=
+      '<div class="dhead"><div class="crumb">'+p.crumb+'</div><h2>'+p.title+'</h2><div class="chips"><span class="tag '+p.pri[1]+'">'+p.pri[0]+'</span>'+p.chips.map(function(c){return '<span class="chip">'+c+'</span>';}).join('')+'</div><p class="summary">'+p.summary+'</p></div>'+
+      '<div class="lens"><span>View as</span><div class="seg" role="group" aria-label="View as">'+
+        [['eng','Engineer'],['pm','PM'],['des','Designer']].map(function(x){return '<button data-r="'+x[0]+'" aria-pressed="'+(r===x[0])+'">'+x[1]+'</button>';}).join('')+'</div></div>'+
+      '<div class="flow"><h3>Where people got stuck</h3><div class="steps">'+steps+'</div></div>'+
+      '<div class="body fade">'+p[r]+'</div>';
+    detail.querySelectorAll('.seg button').forEach(function(b){b.onclick=function(){role=b.dataset.r;renderDetail();};});
+  }
+  function setIdea(k,on){app.classList.toggle('on-'+k,on);document.querySelector('.switch[data-k="'+k+'"]').setAttribute('aria-checked',on);
+    if(k==='c'&&!on&&P[sel].noerr) sel='120';
+    renderList();renderDetail();}
+  document.querySelectorAll('.switch').forEach(function(b){b.onclick=function(){setIdea(b.dataset.k,b.getAttribute('aria-checked')!=='true');};});
+  document.getElementById('allOff').onclick=function(){['a','b','c'].forEach(function(k){setIdea(k,false);});};
+  document.getElementById('allOn').onclick=function(){['a','b','c'].forEach(function(k){setIdea(k,true);});};
+  var ov=document.getElementById('overlay'),wb=document.getElementById('whyBtn');
+  wb.onclick=function(){ov.hidden=false;document.getElementById('closeWhy').focus();};
+  function closeOv(){ov.hidden=true;wb.focus();}
+  document.getElementById('closeWhy').onclick=closeOv;
+  ov.addEventListener('click',function(e){if(e.target===ov)closeOv();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ov.hidden)closeOv();});
+  renderList();renderDetail();
+})();
+</script>
+</body>
+</html>
