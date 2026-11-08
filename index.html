@@ -85,8 +85,20 @@ body{margin:0;background:var(--page);color:var(--ink);font-family:var(--font);fo
 .code .del{background:var(--red-soft);color:var(--red);display:block}
 .code .add{background:var(--green-soft);color:var(--green);display:block}
 .replay{display:grid;grid-template-columns:repeat(3,1fr);gap:0.96cqw}
-.shot{border:1px solid var(--edge);border-radius:0.72cqw;aspect-ratio:16/10;background:var(--pane);display:grid;place-items:center;text-align:center;font-size:1.2cqw;color:var(--mute);padding:0.72cqw}
-.shot.err{background:var(--red-soft);color:var(--red);border-color:#f3c4c1}
+.frame-shot{margin:0;display:grid;gap:.6cqw}
+.mini{border:1px solid var(--edge);border-radius:.8cqw;aspect-ratio:16/9;background:#fff;padding:.9cqw;display:grid;align-content:start;gap:.55cqw;overflow:hidden}
+.mini .bar{height:.7cqw;border-radius:.35cqw;background:#e6e6e3}
+.mini .bar.s{width:45%} .mini .bar.m{width:70%}
+.mini .btn{height:1.9cqw;width:46%;border-radius:.5cqw;background:var(--ink);color:#fff;font-size:1cqw;display:grid;place-items:center;font-weight:600}
+.mini .btn.blue{background:var(--blue)}
+.mini .btn.dim{background:#cfd6e4}
+.mini .h{font-size:1.15cqw;font-weight:650;color:var(--ink)}
+.mini.err{background:var(--red-soft);border-color:#f3c4c1}
+.mini.err .h{color:var(--red)}
+.mini .spin{font-size:1cqw;color:var(--mute)}
+.frame-shot figcaption{font-size:1.08cqw;line-height:1.35;color:var(--soft)}
+.frame-shot figcaption b{color:var(--ink);font-weight:600}
+.frame-shot.bad figcaption b{color:var(--red)}
 .fade{animation:fade .25s ease}
 @keyframes fade{from{opacity:.3}to{opacity:1}}
 
@@ -245,13 +257,13 @@ h1{margin:0;font-size:clamp(24px,2.2vw,32px);line-height:1.1;font-weight:650;let
       steps:[['Asks for reset','12,881'],['Gets email','12,880'],['Opens link','11,402'],['Sees error page','11,402',1],['Sets password','0',2]],
       eng:'<div class="note"><h3>Finding</h3><p>A recent change in auth/reset.ts points the link at a route that no longer exists.</p><div class="code">  export function buildResetLink(userId) {\n<span class="del">-   const baseUrl = "https://example.com/reset-password";</span><span class="add">+   const baseUrl = "https://staging.example.com";</span>  }</div></div><div class="note"><h3>Fact</h3><p>Error rate went from 0.2% to 12% within 6 minutes of Tuesday\'s deploy (example).</p></div>',
       pm:'<div class="row"><div class="stat"><small>People affected</small><b>12,881</b><em>example</em></div><div class="stat"><small>Paying workspaces</small><b>44</b><em>3 Enterprise (example)</em></div><div class="stat"><small>Since</small><b>36 min</b><em>after Tuesday\'s deploy</em></div></div><div class="note"><h3>What to tell customers</h3><p>"Password reset links are not working right now. We\'re fixing it. You can still sign in with your current password." Owner: Luke. Fix suggested.</p></div>',
-      des:'<div class="note"><h3>What people see</h3><p>They click the link in the email and land on a generic error page with no way back to the form. Most try the link again, then leave.</p></div><div class="replay"><div class="shot">Reset email</div><div class="shot err">Generic error page</div><div class="shot">Back to sign in</div></div>'},
+      des:'<div class="note"><h3>What people see</h3><p>Most people try the link twice, then give up. Here is what they see, step by step.</p></div><div class="replay"><figure class="frame-shot"><div class="mini"><span class="h">Reset your password</span><span class="bar m"></span><span class="bar s"></span><span class="btn blue">Reset password</span></div><figcaption><b>1. The email arrives.</b> They click the reset link.</figcaption></figure><figure class="frame-shot bad"><div class="mini err"><span class="h">Something went wrong</span><span class="bar m"></span><span class="bar s"></span></div><figcaption><b>2. The link opens an error page.</b> No form, no way back. This is the bug.</figcaption></figure><figure class="frame-shot"><div class="mini"><span class="h">Sign in</span><span class="bar m"></span><span class="bar m"></span><span class="btn">Sign in</span></div><figcaption><b>3. They return to sign in</b> and leave without a new password.</figcaption></figure></div>'},
     '121':{noerr:true,title:'People give up on onboarding at "Connect your repo"',pri:['Medium','med'],users:'214',crumb:'Inbox / #121',chips:['Investigating','No error','Website'],
       summary:'New trials stop at "Connect your repo". Nothing errors: people click Connect, wait, and leave.',
       steps:[['Signs up','1,020'],['Names project','964'],['Connect your repo','596',1],['Installs SDK','382',2],['Sees first problem','350',2]],
       eng:'<div class="note"><h3>No exception thrown</h3><p>The Connect button works, but the page shows nothing for up to 20 seconds while it waits for GitHub. Sessions show people clicking it twice, then leaving (example).</p></div>',
       pm:'<div class="row"><div class="stat"><small>Trials stuck this week</small><b>214</b><em>example</em></div><div class="stat"><small>Drop at this step</small><b>38%</b><em>was 12% last month</em></div><div class="stat"><small>Since</small><b>v12.0</b><em>latest release</em></div></div><div class="note"><h3>Why it matters</h3><p>These are new trials that never see their first problem in Interfere, so they never see the value.</p></div>',
-      des:'<div class="note"><h3>What people see</h3><p>A Connect button that seems to do nothing. No spinner, no message. They try again, then give up. A clear "Waiting for GitHub" state would likely fix most of it.</p></div><div class="replay"><div class="shot">Connect your repo</div><div class="shot err">Nothing happens for 20s</div><div class="shot">Tab closed</div></div>'},
+      des:'<div class="note"><h3>What people see</h3><p>A button that seems to do nothing. Here is what they see, step by step.</p></div><div class="replay"><figure class="frame-shot"><div class="mini"><span class="h">Connect your repo</span><span class="bar m"></span><span class="btn">Connect GitHub</span></div><figcaption><b>1. They click Connect.</b> This is the step before the setup.</figcaption></figure><figure class="frame-shot bad"><div class="mini err"><span class="h">Connect your repo</span><span class="bar m"></span><span class="btn dim">Connect GitHub</span><span class="spin">No spinner, no message</span></div><figcaption><b>2. Nothing happens for 20 seconds.</b> No error is thrown, so no alert fires.</figcaption></figure><figure class="frame-shot"><div class="mini"><span class="h">New tab</span><span class="bar s"></span></div><figcaption><b>3. They close the tab.</b> A clear "Waiting for GitHub" state would likely keep them.</figcaption></figure></div>'},
     '87':{title:'Users unable to export billing invoices',pri:['High','high'],users:'1,521',crumb:'Inbox / #87',chips:['Investigating','Website'],
       summary:'People click "Export invoices" and the download never starts.',
       steps:[['Opens billing','1,890'],['Clicks Export','1,521'],['Download starts','0',1]],
